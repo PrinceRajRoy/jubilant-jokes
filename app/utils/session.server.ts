@@ -72,14 +72,14 @@ export async function requireUserId(
 ) {
   const userId = await getUserId(request);
   if (!userId) {
-    const params = new URLSearchParams([["redirect", redirectTo]]);
+    const params = new URLSearchParams([["redirectTo", redirectTo]]);
     throw redirect(`login?${params}`);
   }
   return userId;
 }
 
 export async function getUser(request: Request) {
-  const userId = await requireUserId(request);
+  const userId = await getUserId(request);
   if (userId) {
     return db.user.findUnique({ where: { id: userId } });
   }
