@@ -1,4 +1,4 @@
-import { ActionFunction, Link, LoaderFunction, useCatch } from "remix";
+import { ActionFunction, Form, Link, LoaderFunction, useCatch } from "remix";
 import { redirect, useActionData } from "remix";
 import { db } from "~/utils/db.server";
 import { getUserId, requireUserId } from "~/utils/session.server";
@@ -70,7 +70,7 @@ export default function NewJokeRoute() {
   return (
     <div>
       <p>Add your own hilarious joke</p>
-      <form method="post">
+      <Form method="post">
         <div>
           <label>
             Name:{" "}
@@ -119,7 +119,7 @@ export default function NewJokeRoute() {
             Add
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
@@ -136,7 +136,8 @@ export function CatchBoundary() {
   }
 }
 
-export function ErrorBoundary() {
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
   return (
     <div className="error-container">
       Something unexpected went wrong. Sorry about that.
